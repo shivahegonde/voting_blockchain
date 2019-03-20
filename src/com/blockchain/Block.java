@@ -1,4 +1,4 @@
-package com.blockchain;
+package src.com.blockchain;
 
 import java.io.Serializable;
 
@@ -9,13 +9,13 @@ public class Block implements Serializable
 	{
 		private String voterId;
 		private String voterName;
-		private String voteParty;
+		private String voteCandidate;
 
 		public Vote(String voterId, String voterName, String voteParty)
 		{
 			this.voterName=voterName;
 			this.voterId=voterId;
-			this.voteParty=voteParty;
+			this.voteCandidate =voteParty;
 		}
 
 		public String getVoterId() {
@@ -34,12 +34,12 @@ public class Block implements Serializable
 			this.voterName = voterName;
 		}
 
-		public String getVoteParty() {
-			return voteParty;
+		public String getVoteCandidate() {
+			return voteCandidate;
 		}
 
-		public void setVoteParty(String voteParty) {
-			this.voteParty = voteParty;
+		public void setVoteCandidate(String voteCandidate) {
+			this.voteCandidate = voteCandidate;
 		}
 	}
 
@@ -48,10 +48,10 @@ public class Block implements Serializable
 	private int previousHash;
 	private int blockHash;
 
-	public Block(int previousHash, String voterId, String voterName, String voteParty)
+	public Block(int previousHash, String voterId, String voterName, String voteCandidate)
 	{
 		this.previousHash=previousHash;
-		voteObj=new Vote(voterId, voterName, voteParty);
+		voteObj=new Vote(voterId, voterName, voteCandidate);
 
 		Object[] contents={voteObj.hashCode(), previousHash};
 		this.blockHash=contents.hashCode();
@@ -83,6 +83,6 @@ public class Block implements Serializable
 	
 	@Override
 	public String toString() {
-		return "Voter Id:" + this.voteObj.voterId + "\nVoter Name: " + this.voteObj.voterName + "\nVoted for party: " + this.voteObj.voteParty;
+		return "Voter Id:" + this.voteObj.voterId + "\nVoter Name: " + this.voteObj.voterName + "\nVoted for Candidate: " + this.voteObj.voteCandidate;
 	}
 }

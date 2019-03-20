@@ -1,4 +1,4 @@
-package com.network;
+package src.com.network;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -10,8 +10,6 @@ import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.crypto.SealedObject;
-
-import com.blockchain.Block;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.network;
+package src.com.network;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,22 +9,15 @@ import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.nio.file.Files;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashSet;
-
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SealedObject;
 import javax.crypto.spec.SecretKeySpec;
+import src.com.blockchain.Block;
 
-import com.blockchain.Block;
-
-import static com.main.Main.decrypt;
+import static src.com.main.Main.decrypt;
 import static java.nio.file.attribute.PosixFilePermission.*;
 
 
@@ -46,7 +39,7 @@ public class ClientManager extends NetworkManager {
 	private Socket _socket = null;
 	private Block genesisBlock;
 	private ArrayList<SealedObject> blockList;
-	private ArrayList<String> parties;
+	private ArrayList<String> candicates;
 	private HashSet<String> hashVotes;
 	private int prevHash=0;
 
@@ -58,10 +51,10 @@ public class ClientManager extends NetworkManager {
 			System.out.println("Connected to server: " + addr + ":" + port);
 			genesisBlock=new Block(0, "", "", "");
 			hashVotes=new HashSet<>();
-			parties = new ArrayList<>();
-			parties.add("BJP");
-			parties.add("INC");
-			parties.add("BSP");
+			candicates = new ArrayList<>();
+			candicates.add("Shivkumar");
+			candicates.add("Mahadev");
+			candicates.add("Nikhil");
 
 			blockList=new ArrayList<>();
 			blockList.add(encrypt(genesisBlock));
@@ -85,7 +78,7 @@ public class ClientManager extends NetworkManager {
 
 			String voterId= null;
 			String voterName =null;
-			String voteParty=null;
+			String voteCandidate=null;
 
 			try {
 				System.out.print("Enter Voter ID : ");
@@ -93,26 +86,26 @@ public class ClientManager extends NetworkManager {
 				System.out.print("Enter Voter Name : ");
 				voterName = br.readLine();
 
-				System.out.println("Vote for parties:");
+				System.out.println("Vote for candicates:");
 				int voteChoice;
 
 				do {
-					for (int i=0 ;i<parties.size() ;i++) {
-						System.out.println((i+1)+". "+ parties.get(i));
+					for (int i = 0; i< candicates.size() ; i++) {
+						System.out.println((i+1)+". "+ candicates.get(i));
 					}
 
 					System.out.println("Enter your Vote : ");
-					voteParty=br.readLine();
-					voteChoice=Integer.parseInt(voteParty);
+					voteCandidate=br.readLine();
+					voteChoice=Integer.parseInt(voteCandidate);
 //	                System.out.println("vote choice : "+ voteChoice);
-					if(voteChoice>parties.size()||voteChoice<1)
+					if(voteChoice> candicates.size()||voteChoice<1)
 						System.out.println("Please enter correct index .");
 					else
 						break;
 				}while(true);
 
-				voteParty = parties.get(voteChoice-1);
-				blockObj=new Block(prevHash, voterId, voterName, voteParty);
+				voteCandidate = candicates.get(voteChoice-1);
+				blockObj=new Block(prevHash, voterId, voterName, voteCandidate);
 
 				if(checkValidity(blockObj)) {
 					hashVotes.add(voterId);

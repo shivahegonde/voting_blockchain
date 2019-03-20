@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.network;
+package src.com.network;
 
 import java.io.Serializable;
 
